@@ -30,6 +30,15 @@ export default [
   {
     ignores: ['.next/', 'out'],
   },
+
+  // Allow the use of any type in test cases.
+  {
+    files: ['src/**/*.{test,spec}.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+
   {
     rules: {
       'react-compiler/react-compiler': 'error',
@@ -38,8 +47,7 @@ export default [
       quotes: ['error', 'single'],
       'no-var': 'warn',
       'prefer-const': 'warn',
-      'indent-legacy': ['error',
-        2],
+      'indent-legacy': ['error', 2],
       'comma-dangle': ['error', 'always-multiline'],
       'comma-style': ['error', 'last'],
       'array-bracket-newline': ['error', 'consistent'],

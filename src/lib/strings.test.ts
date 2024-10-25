@@ -1,5 +1,5 @@
-import { describe, test, expect } from "vitest"
-import { blankText } from "./strings"
+import { describe, test, expect } from 'vitest'
+import { blankText } from './strings'
 
 describe('string utils', () => {
   test('should return true when string is undefined', () => {
