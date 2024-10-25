@@ -1,53 +1,92 @@
-import Image from 'next/image'
+'use client'
+
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
+
+import { Button, buttonVariants } from '~/components/ui/button'
+import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Input } from '~/components/ui/input'
+import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
+
+import records from '~/../data'
+import { cn } from '~/lib/utils'
+import { MouseEvent, useState } from 'react'
 
 export default function Home() {
+  const [active, setActive] = useState<number>()
+
+  const classify = records.map(({ icon, name, id, status }) => {
+    if (status === 'draft') return <></>
+    return (
+      <Image
+        key={id}
+        src={icon}
+        alt={name}
+        width={40}
+        height={40}
+        onClick={() => setActive(id)}
+        className={cn(
+          buttonVariants({ variant: 'outline' }),
+          'p-1 hover:bg-muted transition-colors',
+          active === id ? 'bg-muted' : undefined,
+        )}
+      />
+    )
+  })
+
+  async function onCopy(event: MouseEvent<HTMLImageElement>) {
+    const img = event.currentTarget
+
+    const canvas = document.createElement('canvas')
+    canvas.width = img.naturalWidth
+    canvas.height = img.naturalHeight
+
+    const ctx = canvas.getContext('2d')
+    ctx?.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight)
+
+    canvas.toBlob((blob) => {
+      if (!blob) return
+
+      // Write blob to  clipboard
+      const data = [new ClipboardItem({ [blob.type]: blob })]
+      navigator.clipboard.write(data)
+    }, 'image/png')
+
+  }
+
+  const stickers = records.find(({ id }) => id === active)
+  const stickerNodes = stickers?.list.map(({ icon, id, name }) => (
+    <img src={icon} key={id} alt={name}
+      onClick={onCopy}
+      crossOrigin="anonymous"
+      className={cn(
+        buttonVariants({ variant: 'outline' }),
+        'p-1 hover:bg-muted transition-colors border-none h-[55px] cursor-pointer',
+      )} />
+  ))
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{' '}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <Card className="w-[600px]">
+          <CardContent className="overflow-hidden pb-0">
+            <ScrollArea className="w-full max-h-[300px] h-52">
+              <div className="grid grid-cols-10 pr-4">{stickerNodes}</div>
+            </ScrollArea>
+          </CardContent>
+          <CardFooter className="overflow-hidden p-4 pb-0">
+            <ScrollArea className="w-full">
+              <div className="flex w-max space-x-2 mb-4">
+                {classify}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          </CardFooter>
+        </Card>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div className="flex gap-2 mx-auto">
+          <Input placeholder="search your like sticker" />
+          <Button variant="outline">Search</Button>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
