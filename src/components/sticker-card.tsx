@@ -4,11 +4,14 @@ import { MouseEvent, useState } from 'react'
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
 import { StickerClassifyBar } from '~/components/classify-bar'
+
 import { Sticker, StickerClassify } from '~/types'
 
 import records from '~/../data'
 
 import * as clipboard from '~/lib/clipboard'
+import { findDefaultStickerClassify } from '~/lib/sticker'
+
 import { StickerImg } from './sticker-img'
 
 interface StickerCardProps {
@@ -16,7 +19,7 @@ interface StickerCardProps {
 }
 
 export function StickerCard({ className }: StickerCardProps) {
-  const [active, setActive] = useState<number>()
+  const [active, setActive] = useState<number>(findDefaultStickerClassify(records as StickerClassify[])?.id ?? 0)
 
   async function onCopy(event: MouseEvent<HTMLImageElement>) {
     const img = event.currentTarget
