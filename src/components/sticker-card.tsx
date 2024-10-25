@@ -14,6 +14,9 @@ import { findDefaultStickerClassify } from '~/lib/sticker'
 
 import { StickerImg } from './sticker-img'
 import { Separator } from './ui/separator'
+import { Toaster } from './ui/sonner'
+import { toast } from 'sonner'
+import { BellIcon } from '@radix-ui/react-icons'
 
 interface StickerCardProps {
   className?: string
@@ -22,7 +25,7 @@ interface StickerCardProps {
 export function StickerCard({ className }: StickerCardProps) {
   const [active, setActive] = useState<number>(findDefaultStickerClassify(records as StickerClassify[])?.id ?? 0)
 
-  async function onCopy(event: MouseEvent<HTMLImageElement>) {
+  async function onCopy(event: MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
 
     const canvas = document.createElement('canvas')
@@ -32,9 +35,14 @@ export function StickerCard({ className }: StickerCardProps) {
     const ctx = canvas.getContext('2d')
     ctx?.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight)
 
-    canvas.toBlob((blob) => {
+    canvas.toBlob(async (blob) => {
       if (!blob) return
-      clipboard.writeBlob(blob)
+      await clipboard.writeBlob(blob)
+
+      toast(`You copied 「${sticker.name}」`, {
+        position: 'top-right',
+        icon: <BellIcon />,
+      })
     }, 'image/png')
 
   }
@@ -46,6 +54,7 @@ export function StickerCard({ className }: StickerCardProps) {
 
   return (
     <Card className={className}>
+      <Toaster />
       <CardContent className="overflow-hidden pb-0">
         <ScrollArea className="max-h-[300px] h-52 py-2">
           <div className="grid grid-cols-10 gap-1">{stickerNodes}</div>
