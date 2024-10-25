@@ -1,4 +1,3 @@
-
 /**
  * the string must not be {@code null} and must contain at least one
  */
