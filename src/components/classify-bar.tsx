@@ -28,19 +28,23 @@ export function StickerClassifyBar({ data = [], activeId, onClick }: StickerClas
     if (icon.length === 0) return
 
     return (
-      <Image
+      <div
         key={id}
-        src={icon}
-        alt={name}
-        width={40}
-        height={40}
-        onClick={() => onClick?.(id)}
         className={cn(
           buttonVariants({ variant: 'outline' }),
-          'p-1 hover:bg-muted transition-colors',
+          'p-1 hover:bg-muted transition-colors w-[40px] h-[40px]',
           activeId === id ? 'bg-muted' : undefined,
         )}
-      />
+      >
+        <Image
+          src={icon}
+          alt={name}
+          width={40}
+          height={40}
+          onClick={() => onClick?.(id)}
+          className="dark:brightness-50"
+        />
+      </div>
     )
   })
 

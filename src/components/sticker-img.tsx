@@ -14,13 +14,17 @@ interface StickerImgProps {
 
 export function StickerImg({ it, onClick }: StickerImgProps) {
   return (
-    <img src={it.icon} alt={it.name}
-      onClick={(e) => onClick?.(e, it)}
-      crossOrigin="anonymous"
+    <div
       className={cn(
         buttonVariants({ variant: 'outline' }),
-        'p-1 hover:bg-muted transition-colors border-none h-[55px] cursor-pointer',
+        'p-1 hover:bg-muted transition-colors border-none h-[55px] w-[55px] cursor-pointer',
       )}
-    />
+    >
+      <img src={it.icon} alt={it.name}
+        onClick={(e) => onClick?.(e, it)}
+        crossOrigin="anonymous"
+        className="dark:brightness-50"
+      />
+    </div>
   )
 }

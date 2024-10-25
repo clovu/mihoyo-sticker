@@ -1,7 +1,7 @@
 'use client'
 import { MouseEvent, useState } from 'react'
 
-import { Card, CardContent, CardFooter } from '~/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
 import { StickerClassifyBar } from '~/components/classify-bar'
 
@@ -13,6 +13,7 @@ import * as clipboard from '~/lib/clipboard'
 import { findDefaultStickerClassify } from '~/lib/sticker'
 
 import { StickerImg } from './sticker-img'
+import { Separator } from './ui/separator'
 
 interface StickerCardProps {
   className?: string
@@ -46,11 +47,12 @@ export function StickerCard({ className }: StickerCardProps) {
   return (
     <Card className={className}>
       <CardContent className="overflow-hidden pb-0">
-        <ScrollArea className="w-full max-h-[300px] h-52">
-          <div className="grid grid-cols-10 pr-4">{stickerNodes}</div>
+        <ScrollArea className="max-h-[300px] h-52 py-2">
+          <div className="grid grid-cols-10 gap-1">{stickerNodes}</div>
         </ScrollArea>
       </CardContent>
-      <CardFooter className="overflow-hidden p-4 pb-0">
+      <Separator />
+      <CardFooter className="overflow-hidden p-4">
         <ScrollArea className="w-full">
           <StickerClassifyBar data={records as StickerClassify[]} activeId={active} onClick={setActive} />
           <ScrollBar orientation="horizontal" />
