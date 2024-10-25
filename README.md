@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- <p align="center">
+  <img width="144px" src="https://naiveui.oss-cn-hongkong.aliyuncs.com/naivelogo.svg" />
+</p> -->
+<p align="center">Kinda Interesting</p>
 
-## Getting Started
+<p align="center">English | <a href="README.zh-CN.md">中文</a></p>
 
-First, run the development server:
+# MiHoYo Sticker
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[**mihoyo-sticker**](https://github.com/Clover-You/mihoyo-sticker) is an open-source project designed to collect and share stickers from miHoYo's "MiYuShe" platform. This website makes it easy to use these stickers and share them effortlessly beyond the community.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The project is developed using Next.js and shadcn/ui.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [x] Click any sticker image to copy it to the clipboard.
+- [ ] Download stickers to local storage.
+- [ ] Copy sticker image links.
+- [ ] Local favorites.
 
-## Learn More
+## Installation and Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the Project**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone git@github.com:Clover-You/mihoyo-sticker.git
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install Dependencies**:
 
-## Deploy on Vercel
+   Navigate to the project directory and install the required dependencies.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   pnpm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Start the Project**:
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Access the Website**:
+
+   Open your browser and go to `http://localhost:3000` (or any port you've set).
+
+## Contribution
+
+Contributions of any kind are welcome! If you have ideas or suggestions, feel free to open an issue or submit a pull request.
+
+## License
+
+MIT License © 2024 [Clover You](https://github.com/Clover-You)
