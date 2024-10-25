@@ -1,7 +1,7 @@
 'use client'
 import { MouseEvent, useState } from 'react'
 
-import { Card, CardContent, CardFooter, CardHeader } from '~/components/ui/card'
+import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
 import { StickerClassifyBar } from '~/components/classify-bar'
 
