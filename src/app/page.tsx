@@ -1,12 +1,20 @@
 import { ExclamationTriangleIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+
 import { StickerCard } from '~/components/sticker-card'
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
 
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
+import { StickerClassify } from '~/types'
 
-export default function Home() {
+const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'
+
+export default async function Home() {
+  const resp = await fetch(SERVER_URL)
+  const respJson = await resp.json()
+  const data = respJson.data.list as StickerClassify[]
+
   return (
     <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div></div>
@@ -19,7 +27,7 @@ export default function Home() {
           </AlertDescription>
         </Alert>
 
-        <StickerCard className="w-[636px]" />
+        <StickerCard className="w-[636px]" records={data} />
         <div className="flex gap-2 mx-auto">
           <Input placeholder="search your like sticker" />
           <Button variant="outline">Search</Button>

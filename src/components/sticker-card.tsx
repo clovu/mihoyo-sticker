@@ -7,8 +7,6 @@ import { StickerClassifyBar } from '~/components/classify-bar'
 
 import { Sticker, StickerClassify } from '~/types'
 
-import records from '~/../data'
-
 import * as clipboard from '~/lib/clipboard'
 import { findDefaultStickerClassify } from '~/lib/sticker'
 
@@ -20,10 +18,11 @@ import { BellIcon } from '@radix-ui/react-icons'
 
 interface StickerCardProps {
   className?: string
+  records?: StickerClassify[]
 }
 
-export function StickerCard({ className }: StickerCardProps) {
-  const [active, setActive] = useState<number>(findDefaultStickerClassify(records as StickerClassify[])?.id ?? 0)
+export function StickerCard({ className, records = [] }: StickerCardProps) {
+  const [active, setActive] = useState<number>(findDefaultStickerClassify(records)?.id ?? 0)
 
   async function onCopy(event: MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
