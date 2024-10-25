@@ -8,9 +8,8 @@ import { Sticker, StickerClassify } from '~/types'
 
 import records from '~/../data'
 
-import { cn } from '~/lib/utils'
 import * as clipboard from '~/lib/clipboard'
-import { buttonVariants } from './ui/button'
+import { StickerImg } from './sticker-img'
 
 interface StickerCardProps {
   className?: string
@@ -58,15 +57,3 @@ export function StickerCard({ className }: StickerCardProps) {
   )
 }
 
-function StickerImg({ it, onClick }: { it: Sticker, onClick: (e: MouseEvent<HTMLImageElement>, s: Sticker) => void }) {
-  return (
-    <img src={it.icon} alt={it.name}
-      onClick={(e) => onClick?.(e, it)}
-      crossOrigin="anonymous"
-      className={cn(
-        buttonVariants({ variant: 'outline' }),
-        'p-1 hover:bg-muted transition-colors border-none h-[55px] cursor-pointer',
-      )}
-    />
-  )
-}
