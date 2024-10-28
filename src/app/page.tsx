@@ -2,10 +2,11 @@ import { ExclamationTriangleIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 import { StickerCard } from '~/components/sticker-card'
-import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
 
+import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
+
 import { StickerClassify } from '~/types'
 
 const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'

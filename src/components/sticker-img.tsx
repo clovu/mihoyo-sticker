@@ -1,13 +1,18 @@
 'use client'
 
 import { MouseEvent } from 'react'
+import { DownloadIcon } from '@radix-ui/react-icons'
 
 import { buttonVariants } from './ui/button'
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from './ui/context-menu'
 
 import { Sticker } from '~/types'
 import { cn } from '~/lib/utils'
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from './ui/context-menu'
-import { DownloadIcon } from '@radix-ui/react-icons'
 
 interface StickerImgProps {
   it: Sticker
