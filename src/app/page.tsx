@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div></div>
+      <div><img src="/qv_furina.png" width={150} className="dark:brightness-[.3] dark:opacity-80 opacity-50 select-none" draggable="false" /></div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Alert variant="destructive">
           <ExclamationTriangleIcon className="h-4 w-4" />
