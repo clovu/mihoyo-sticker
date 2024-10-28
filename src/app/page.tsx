@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
-      <div className="h-screen w-screen flex justify-center items-center sm:h-auto sm:w-auto">
+      <div className="h-screen w-screen flex justify-center items-center sm:h-auto sm:w-auto sm:pt-20">
         <img
           src="/qv_furina.png"
           width={150}
