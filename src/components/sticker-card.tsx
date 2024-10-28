@@ -1,5 +1,5 @@
 'use client'
-import { MouseEvent, ReactNode, useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
@@ -10,7 +10,7 @@ import { Sticker, StickerClassify } from '~/types'
 import * as clipboard from '~/lib/clipboard'
 import { findDefaultStickerClassify } from '~/lib/sticker'
 
-import { StickerImg } from './sticker-img'
+import { MenuType, StickerImg } from './sticker-img'
 import { Separator } from './ui/separator'
 import { Toaster } from './ui/sonner'
 import { toast } from 'sonner'
@@ -39,7 +39,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     setHistory(records)
   }
 
-  async function onCopy(event: MouseEvent<HTMLImageElement>, sticker: Sticker) {
+  async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
 
     const canvas = document.createElement('canvas')
@@ -63,6 +63,36 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
   }
 
+  /**
+   * download the sticker to local
+   */
+  async function downloadSticker(s: Sticker) {
+    try {
+      const resp = await fetch(s.icon)
+      const blob = await resp.blob()
+
+      const objURL = URL.createObjectURL(blob)
+
+      const anchor = document.createElement('a')
+      anchor.href = objURL
+      anchor.download = s.name
+
+      const clickEvent = new MouseEvent('click')
+
+      anchor.dispatchEvent(clickEvent)
+
+      URL.revokeObjectURL(objURL)
+    } catch (e) {
+      const errMsg = e instanceof Error ? e.message : 'System error'
+      toast.error('Error', { description: errMsg, position: 'top-right', richColors: true })
+    }
+  }
+
+  function handleMenuClick(i: MenuType, s: Sticker) {
+    if (i === MenuType.DOWNLOAD)
+      downloadSticker(s)
+  }
+
   // handle history sticker and sort
   const historySticker = handleHistorySticker(historyStickerRecords || {})
   const historyClassify = { id: 0, name: 'History', list: historySticker }
@@ -70,7 +100,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   const stickers = [historyClassify, ...records].find(({ id }) => id === active)
 
   const stickerNodes = stickers?.list.map((it) => (
-    <StickerImg it={it as Sticker} onClick={onCopy} key={it.id} />
+    <StickerImg it={it as Sticker} onClick={onCopy} key={it.id} onMenuClick={handleMenuClick} />
   ))
 
   function classifyBarRenderer(el?: ReactNode) {
