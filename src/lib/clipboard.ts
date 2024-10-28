@@ -15,3 +15,7 @@ export function writeBlob(blob: Blob, type: string = blob.type) {
   const data = [new ClipboardItem({ [type]: blob })]
   return navigator.clipboard.write(data)
 }
+
+export function writeText(text: string) {
+  return navigator.clipboard.writeText(text)
+}

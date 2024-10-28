@@ -1,7 +1,7 @@
 'use client'
 
 import { MouseEvent } from 'react'
-import { DownloadIcon } from '@radix-ui/react-icons'
+import { DownloadIcon, Link2Icon } from '@radix-ui/react-icons'
 
 import { buttonVariants } from './ui/button'
 import {
@@ -21,7 +21,8 @@ interface StickerImgProps {
 }
 
 export enum MenuType {
-  DOWNLOAD
+  DOWNLOAD,
+  COPY_URL
 }
 
 export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
@@ -45,6 +46,10 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
         <ContextMenuItem onClick={() => onMenuClick(MenuType.DOWNLOAD, it)}>
           <DownloadIcon className="mr-2" />
           Download
+        </ContextMenuItem>
+        <ContextMenuItem onClick={() => onMenuClick(MenuType.COPY_URL, it)}>
+          <Link2Icon />
+          Copy URL
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>

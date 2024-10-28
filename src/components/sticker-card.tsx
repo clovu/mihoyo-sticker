@@ -42,6 +42,11 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     setHistory(records)
   }
 
+  function handleError(e: unknown) {
+    const errMsg = e instanceof Error ? e.message : 'Unknown Error'
+    toast.error('Error', { description: errMsg, richColors: true, position: 'top-right' })
+  }
+
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
 
@@ -54,14 +59,19 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
     canvas.toBlob(async (blob) => {
       if (!blob) return
-      await clipboard.writeBlob(blob)
+      try {
+        await clipboard.writeBlob(blob)
 
-      toast(`You copied 「${sticker.name}」`, {
-        position: 'top-right',
-        icon: <BellIcon />,
-      })
+        toast(`You copied 「${sticker.name}」`, {
+          position: 'top-right',
+          icon: <BellIcon />,
+        })
 
-      addHistory(sticker)
+        addHistory(sticker)
+      } catch (e) {
+        handleError(e)
+      }
+
     }, 'image/png')
 
   }
@@ -86,14 +96,29 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
       URL.revokeObjectURL(objURL)
     } catch (e) {
-      const errMsg = e instanceof Error ? e.message : 'System error'
-      toast.error('Error', { description: errMsg, position: 'top-right', richColors: true })
+      handleError(e)
+    }
+  }
+
+  async function copeStickerURL(s: Sticker) {
+    try {
+      await clipboard.writeText(s.icon)
+
+      toast(`The URL of 「${s.name}」 has been copied to your clipboard`, {
+        position: 'top-right',
+        icon: <BellIcon />,
+        description: s.icon,
+      })
+    } catch (e) {
+      handleError(e)
     }
   }
 
   function handleMenuClick(i: MenuType, s: Sticker) {
     if (i === MenuType.DOWNLOAD)
       downloadSticker(s)
+    else if (i === MenuType.COPY_URL)
+      copeStickerURL(s)
   }
 
   // handle history sticker and sort

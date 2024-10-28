@@ -15,8 +15,8 @@ The project is developed using Next.js and shadcn/ui.
 
 - [x] Click any sticker image to copy it to the clipboard.
 - [x] Download stickers to local.
-- [ ] Copy sticker image links.
-- [v] Local favorites.
+- [x] Copy sticker image links.
+- [x] Local favorites.
 
 ## Installation and Usage
 
