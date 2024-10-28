@@ -1,5 +1,5 @@
 'use client'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, ReactNode, useState } from 'react'
 
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
@@ -14,7 +14,11 @@ import { StickerImg } from './sticker-img'
 import { Separator } from './ui/separator'
 import { Toaster } from './ui/sonner'
 import { toast } from 'sonner'
-import { BellIcon } from '@radix-ui/react-icons'
+import { BellIcon, CountdownTimerIcon } from '@radix-ui/react-icons'
+import { Button } from './ui/button'
+import { cn } from '~/lib/utils'
+import { useLocalStorage } from 'react-use'
+import { handleHistorySticker } from '~/lib/strings'
 
 interface StickerCardProps {
   className?: string
@@ -23,6 +27,17 @@ interface StickerCardProps {
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {
   const [active, setActive] = useState<number>(findDefaultStickerClassify(records)?.id ?? 0)
+  const [historyStickerRecords, setHistory] = useLocalStorage('sticker-history', {} as Record<number, [number, Sticker]>)
+
+  function addHistory(s: Sticker) {
+    if (!historyStickerRecords)
+      setHistory({})
+
+    const records = { ...historyStickerRecords }
+    records[s.id] = [new Date().getTime(), s]
+
+    setHistory(records)
+  }
 
   async function onCopy(event: MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
@@ -42,14 +57,35 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
         position: 'top-right',
         icon: <BellIcon />,
       })
+
+      addHistory(sticker)
     }, 'image/png')
 
   }
 
-  const stickers = records.find(({ id }) => id === active)
+  // handle history sticker and sort
+  const historySticker = handleHistorySticker(historyStickerRecords || {})
+  const historyClassify = { id: 0, name: 'History', list: historySticker }
+
+  const stickers = [historyClassify, ...records].find(({ id }) => id === active)
+
   const stickerNodes = stickers?.list.map((it) => (
     <StickerImg it={it as Sticker} onClick={onCopy} key={it.id} />
   ))
+
+  function classifyBarRenderer(el?: ReactNode) {
+    return <>
+      <Button
+        variant="outline"
+        className={cn('w-[40px] h-[40px]', active === 0 ? 'bg-muted' : '')}
+        onClick={() => {
+          setActive(0)
+        }}
+      >
+        <CountdownTimerIcon />
+      </Button>
+      {el}</>
+  }
 
   return (
     <Card className={className}>
@@ -62,7 +98,12 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       <Separator />
       <CardFooter className="overflow-hidden p-4">
         <ScrollArea className="w-full">
-          <StickerClassifyBar data={records as StickerClassify[]} activeId={active} onClick={setActive} />
+          <StickerClassifyBar
+            data={records}
+            activeId={active}
+            onClick={setActive}
+            renderer={classifyBarRenderer}
+          />
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </CardFooter>

@@ -8,6 +8,7 @@
  * @author: Clover
  * @create: 2024-10-25 14:56
  */
+import { ReactNode } from 'react'
 import Image from 'next/image'
 
 import { Sticker, StickerClassify } from '~/types'
@@ -21,9 +22,10 @@ interface StickerClassifyBarProps {
   data?: Classify[]
   activeId?: number
   onClick?: (id: number) => void
+  renderer?: (e?: ReactNode) => ReactNode
 }
 
-export function StickerClassifyBar({ data = [], activeId, onClick }: StickerClassifyBarProps) {
+export function StickerClassifyBar({ data = [], activeId, onClick, renderer }: StickerClassifyBarProps) {
   const classifyList = data.map(({ icon, name, id }) => {
     if (icon.length === 0) return
 
@@ -50,7 +52,7 @@ export function StickerClassifyBar({ data = [], activeId, onClick }: StickerClas
 
   return (
     <div className="flex w-max space-x-2">
-      {classifyList}
+      {renderer ? renderer(classifyList) : classifyList}
     </div>
   )
 }
