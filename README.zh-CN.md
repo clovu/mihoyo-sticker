@@ -1,3 +1,10 @@
+<p align="center">
+  <img width="144px" src="https://github.com/user-attachments/assets/c4049305-1fd6-4c5c-9b25-e6e45bb619f7" />
+</p>
+<p align="center">有趣~</p>
+
+<p align="center"><a href="README.md">English</a> | 中文</p>
+
 # MiHoYo Sticker
 
 [**mihoyo-sticker**](https://github.com/Clover-You/mihoyo-sticker) 是一个开源项目，用于收集和分享米哈游产品“米游社”中的表情包。通过这个网站可以方便地使用这些表情包，在社区以外的地方也能轻松分享和使用。

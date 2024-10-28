@@ -1,6 +1,6 @@
-<!-- <p align="center">
-  <img width="144px" src="https://naiveui.oss-cn-hongkong.aliyuncs.com/naivelogo.svg" />
-</p> -->
+<p align="center">
+  <img width="144px" src="https://github.com/user-attachments/assets/c4049305-1fd6-4c5c-9b25-e6e45bb619f7" />
+</p>
 <p align="center">Kinda Interesting</p>
 
 <p align="center">English | <a href="README.zh-CN.md">中文</a></p>
