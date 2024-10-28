@@ -38,6 +38,7 @@
     "eslint": "^9.13.0",
     "eslint-config-next": "15.0.1",
     "eslint-plugin-react-compiler": "19.0.0-beta-8a03594-20241020",
+    "globals": "^15.11.0",
     "lint-staged": "^15.2.10",
     "pnpm": "^9.12.2",
     "postcss": "^8.4.47",
