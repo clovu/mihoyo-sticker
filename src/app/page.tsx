@@ -16,9 +16,15 @@ export default async function Home() {
   const data = respJson.data.list as StickerClassify[]
 
   return (
-    <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div><img src="/qv_furina.png" width={150} className="dark:brightness-[.3] dark:opacity-80 opacity-50 select-none" draggable="false" /></div>
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+      <div className="h-screen w-screen flex justify-center items-center sm:h-auto sm:w-auto">
+        <img
+          src="/qv_furina.png"
+          width={150}
+          className="dark:brightness-[.3] dark:opacity-80 opacity-50 select-none"
+          draggable="false" />
+      </div>
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-center w-screen sm:w-[750px] p-8 box-border">
         <Alert variant="destructive">
           <ExclamationTriangleIcon className="h-4 w-4" />
           <AlertTitle>Alert</AlertTitle>
@@ -27,7 +33,7 @@ export default async function Home() {
           </AlertDescription>
         </Alert>
 
-        <StickerCard className="w-[636px]" records={data} />
+        <StickerCard className="w-full" records={data} />
         <div className="flex gap-2 mx-auto">
           <Input placeholder="search your like sticker" />
           <Button variant="outline">Search</Button>

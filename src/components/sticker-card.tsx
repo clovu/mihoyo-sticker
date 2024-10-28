@@ -56,7 +56,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       <Toaster />
       <CardContent className="overflow-hidden pb-0">
         <ScrollArea className="max-h-[300px] h-52 py-2">
-          <div className="grid grid-cols-10 gap-1">{stickerNodes}</div>
+          <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">{stickerNodes}</div>
         </ScrollArea>
       </CardContent>
       <Separator />
