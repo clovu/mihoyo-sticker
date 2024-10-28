@@ -10,10 +10,14 @@ import { StickerClassify } from '~/types'
 
 const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'
 
-export default async function Home() {
+export async function getStickerRecords() {
   const resp = await fetch(SERVER_URL)
   const respJson = await resp.json()
-  const data = respJson.data.list as StickerClassify[]
+  return respJson.data.list as StickerClassify[]
+}
+
+export default async function Home() {
+  const stickers = await getStickerRecords()
 
   return (
     <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
@@ -33,7 +37,7 @@ export default async function Home() {
           </AlertDescription>
         </Alert>
 
-        <StickerCard className="w-full" records={data} />
+        <StickerCard className="w-full" records={stickers} />
         <div className="flex gap-2 mx-auto">
           <Input placeholder="search your like sticker" />
           <Button variant="outline">Search</Button>
