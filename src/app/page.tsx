@@ -11,7 +11,7 @@ import { StickerClassify } from '~/types'
 
 const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'
 
-export async function getStickerRecords() {
+async function getStickerRecords() {
   const resp = await fetch(SERVER_URL)
   const respJson = await resp.json()
   return respJson.data.list as StickerClassify[]
