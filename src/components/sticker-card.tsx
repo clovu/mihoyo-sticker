@@ -47,33 +47,38 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     toast.error('Error', { description: errMsg, richColors: true, position: 'top-right' })
   }
 
+  function imgToBlob(img: HTMLImageElement) {
+    return new Promise<Blob | null>((resolve) => {
+      const canvas = document.createElement('canvas')
+      canvas.width = img.naturalWidth
+      canvas.height = img.naturalHeight
+
+      const ctx = canvas.getContext('2d')
+      ctx?.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight)
+
+      canvas.toBlob(resolve, 'image/png')
+    })
+  }
+
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
 
-    const canvas = document.createElement('canvas')
-    canvas.width = img.naturalWidth
-    canvas.height = img.naturalHeight
+    const blob = await imgToBlob(img)
+    if (!blob) return
 
-    const ctx = canvas.getContext('2d')
-    ctx?.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight)
+    try {
+      const clipboardItem = [new ClipboardItem({ [blob.type]: blob })]
+      await navigator.clipboard.write(clipboardItem)
 
-    canvas.toBlob(async (blob) => {
-      if (!blob) return
-      try {
-        await clipboard.writeBlob(blob)
+      toast(`You copied 「${sticker.name}」`, {
+        position: 'top-right',
+        icon: <BellIcon />,
+      })
 
-        toast(`You copied 「${sticker.name}」`, {
-          position: 'top-right',
-          icon: <BellIcon />,
-        })
-
-        addHistory(sticker)
-      } catch (e) {
-        handleError(e)
-      }
-
-    }, 'image/png')
-
+      addHistory(sticker)
+    } catch (e) {
+      handleError(e)
+    }
   }
 
   /**
