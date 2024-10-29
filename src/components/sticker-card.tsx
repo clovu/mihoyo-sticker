@@ -17,6 +17,7 @@ import { Button } from './ui/button'
 import { Sticker, StickerClassify } from '~/types'
 
 import * as clipboard from '~/lib/clipboard'
+import { toBlob, imgToConvas } from '~/lib/convas'
 import { cn } from '~/lib/utils'
 import { findDefaultStickerClassify } from '~/lib/sticker'
 import { handleHistorySticker } from '~/lib/strings'
@@ -47,26 +48,16 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     toast.error('Error', { description: errMsg, richColors: true, position: 'top-right' })
   }
 
-  function imgToBlob(img: HTMLImageElement) {
-    return new Promise<Blob | null>((resolve) => {
-      const canvas = document.createElement('canvas')
-      canvas.width = img.naturalWidth
-      canvas.height = img.naturalHeight
-
-      const ctx = canvas.getContext('2d')
-      ctx?.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight)
-
-      canvas.toBlob(resolve, 'image/png')
-    })
-  }
-
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
 
-    const blob = await imgToBlob(img)
-    if (!blob) return
-
     try {
+      const canvas = imgToConvas(img)
+      if (!canvas) return
+
+      const blob = toBlob(canvas)
+      if (!blob) return
+
       const clipboardItem = [new ClipboardItem({ [blob.type]: blob })]
       await navigator.clipboard.write(clipboardItem)
 
