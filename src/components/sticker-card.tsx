@@ -59,6 +59,8 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       if (!blob) return
 
       const clipboardItem = [new ClipboardItem({ [blob.type]: blob })]
+      // it must be invoked within a user-triggered event (e.g., click event).
+      // see: https://webkit.org/blog/10247/new-webkit-features-in-safari-13-1/
       await navigator.clipboard.write(clipboardItem)
 
       toast(`You copied 「${sticker.name}」`, {
