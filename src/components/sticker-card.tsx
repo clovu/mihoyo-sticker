@@ -14,7 +14,7 @@ import { Toaster } from './ui/sonner'
 import { Button } from './ui/button'
 
 
-import { Sticker, StickerClassify } from '~/types'
+import { HistoryStickerRecord, Sticker, StickerClassify } from '~/types'
 
 import * as clipboard from '~/lib/clipboard'
 import { toBlob, imgToConvas } from '~/lib/convas'
@@ -31,7 +31,8 @@ interface StickerCardProps {
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {
   const [active, setActive] = useState<number>(findDefaultStickerClassify(records)?.id ?? 0)
-  const [historyStickerRecords, setHistory] = useLocalStorage('sticker-history', {} as Record<number, [number, Sticker]>)
+
+  const [historyStickerRecords, setHistory] = useLocalStorage<HistoryStickerRecord>('sticker-history', {})
 
   function addHistory(s: Sticker) {
     if (!historyStickerRecords)
@@ -120,14 +121,17 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   }
 
   // handle history sticker and sort
-  const historySticker = handleHistorySticker(historyStickerRecords || {})
-  const historyClassify = { id: 0, name: 'History', list: historySticker }
+  const historyStickers = handleHistorySticker(historyStickerRecords || {})
+  const historyClassify = { id: 0, name: 'History', list: historyStickers }
 
+  // find the current selected classify
   const stickers = [historyClassify, ...records].find(({ id }) => id === active)
 
-  const stickerNodes = stickers?.list.map((it) => (
-    <StickerImg it={it as Sticker} onClick={onCopy} key={it.id} onMenuClick={handleMenuClick} />
-  ))
+  function StickerRenderer() {
+    return stickers?.list.map((it) => (
+      <StickerImg it={it} onClick={onCopy} key={it.id} onMenuClick={handleMenuClick} />
+    ))
+  }
 
   function classifyBarRenderer(el?: ReactNode) {
     return <>
@@ -148,7 +152,9 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       <Toaster />
       <CardContent className="overflow-hidden pb-0">
         <ScrollArea className="max-h-[300px] h-52 py-2">
-          <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">{stickerNodes}</div>
+          <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
+            <StickerRenderer />
+          </div>
         </ScrollArea>
       </CardContent>
       <Separator />

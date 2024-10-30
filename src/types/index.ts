@@ -23,3 +23,5 @@ export interface Sticker {
   status: StickerStatus
   keywords: string[]
 }
+
+export type HistoryStickerRecord = Record<number, [number, Sticker]>
