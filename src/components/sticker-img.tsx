@@ -48,7 +48,7 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
           Download
         </ContextMenuItem>
         <ContextMenuItem onClick={() => onMenuClick(MenuType.COPY_URL, it)}>
-          <Link2Icon />
+          <Link2Icon className="mr-2" />
           Copy URL
         </ContextMenuItem>
       </ContextMenuContent>
