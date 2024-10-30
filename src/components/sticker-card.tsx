@@ -1,9 +1,9 @@
 'use client'
 
-import { useLocalStorage } from 'react-use'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { toast } from 'sonner'
 import { BellIcon, CountdownTimerIcon } from '@radix-ui/react-icons'
+import { useLocalStorageValue } from '@react-hookz/web'
 
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
@@ -30,9 +30,12 @@ interface StickerCardProps {
 }
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {
-  const [active, setActive] = useState<number>(findDefaultStickerClassify(records)?.id ?? 0)
+  const defaultActiveId = findDefaultStickerClassify(records)?.id ?? 0
+  const { value: active, set: setActive } = useLocalStorageValue<number>('active-parant-id', {
+    initializeWithValue: false, defaultValue: defaultActiveId,
+  })
 
-  const [historyStickerRecords, setHistory] = useLocalStorage<HistoryStickerRecord>('sticker-history', {})
+  const { value: historyStickerRecords, set: setHistory } = useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
 
   function addHistory(s: Sticker) {
     if (!historyStickerRecords)
