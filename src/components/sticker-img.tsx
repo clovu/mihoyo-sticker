@@ -14,10 +14,13 @@ import {
 import { Sticker } from '~/types'
 import { cn } from '~/lib/utils'
 
-interface StickerImgProps {
-  it: Sticker
+export interface StickerImgEvents {
   onClick: (e: MouseEvent<HTMLImageElement>, s: Sticker) => void
   onMenuClick: (i: MenuType, s: Sticker) => void
+}
+
+interface StickerImgProps extends StickerImgEvents {
+  it: Sticker
 }
 
 export enum MenuType {

@@ -22,7 +22,7 @@ import { cn } from '~/lib/utils'
 import { findDefaultStickerClassify } from '~/lib/sticker'
 import { handleHistorySticker } from '~/lib/strings'
 
-import { MenuType, StickerImg } from './sticker-img'
+import { MenuType, StickerImg, StickerImgEvents } from './sticker-img'
 
 interface StickerCardProps {
   className?: string
@@ -129,12 +129,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
   // find the current selected classify
   const stickers = [historyClassify, ...records].find(({ id }) => id === active)
-
-  function StickerRenderer() {
-    return stickers?.list.map((it) => (
-      <StickerImg it={it} onClick={onCopy} key={it.id} onMenuClick={handleMenuClick} />
-    ))
-  }
+  const stickerList = stickers?.list ?? []
 
   function classifyBarRenderer(el?: ReactNode) {
     return <>
@@ -156,7 +151,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       <CardContent className="overflow-hidden pb-0">
         <ScrollArea className="max-h-[300px] h-52 py-2">
           <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
-            <StickerRenderer />
+            <StickerRenderer stickers={stickerList} onMenuClick={handleMenuClick} onClick={onCopy} />
           </div>
         </ScrollArea>
       </CardContent>
@@ -176,3 +171,12 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   )
 }
 
+interface StickerRenderer extends StickerImgEvents {
+  stickers: Sticker[]
+}
+
+function StickerRenderer({ stickers, onClick, onMenuClick }: StickerRenderer) {
+  return stickers.map((it) => (
+    <StickerImg it={it} onClick={onClick} key={it.id} onMenuClick={onMenuClick} />
+  ))
+}
