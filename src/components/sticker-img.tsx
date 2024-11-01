@@ -29,18 +29,23 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <div
+        <figure
           className={cn(
             buttonVariants({ variant: 'outline' }),
             'p-1 hover:bg-muted transition-colors border-none h-[55px] w-[55px] cursor-pointer',
           )}
         >
-          <img src={it.icon} alt={it.name}
+          <img
+            loading="lazy"
+            src={it.icon}
+            alt={it.name}
             onClick={(e) => onClick?.(e, it)}
+            width={55}
+            height={55}
             crossOrigin="anonymous"
             className="dark:brightness-50"
           />
-        </div>
+        </figure>
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem onClick={() => onMenuClick(MenuType.DOWNLOAD, it)}>
