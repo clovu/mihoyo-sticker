@@ -18,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'MiHoYo Sticker',
-  description: 'MiHoYo Sticker',
+  description: 'A simple tool to copy, download, and manage MiYuShe stickers, making sharing and usage effortless across platforms.',
   keywords: ['MiHoYo', 'mhy', '米哈游', '表情包', 'sticker', '米游社', 'furina', '芙宁娜'],
 }
 
