@@ -21,13 +21,15 @@ export default async function Home() {
   const stickers = await getStickerRecords()
 
   return (
-    <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
-      <div className="h-screen w-screen flex justify-center items-center sm:h-auto sm:w-auto sm:pt-20">
+    <div className="flex-col box-border sm:justify-items-center min-h-screen pt-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+      <div className="flex justify-center items-center sm:h-auto sm:w-auto">
         <img
           src="/qv_furina.png"
           width={150}
           className="dark:brightness-[.3] dark:opacity-80 opacity-50 select-none"
-          draggable="false" />
+          draggable="false"
+          alt="Furina"
+        />
       </div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-center w-screen sm:w-[750px] p-8 box-border">
         <Alert variant="destructive">
