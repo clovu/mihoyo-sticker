@@ -37,7 +37,7 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <HoverCard>
+        <HoverCard openDelay={0} closeDelay={0}>
           <HoverCardTrigger asChild>
             <figure
               className={cn(
@@ -75,6 +75,7 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
                 backfaceVisibility: 'hidden',
               }}
             />
+            <p className='text-sm text-center px-sm'>「{it.name}」</p>
           </HoverCardContent>
         </HoverCard>
       </ContextMenuTrigger>
