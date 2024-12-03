@@ -68,6 +68,7 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
               width={200}
               height={200}
               className="rounded-lg transform-gpu will-change-transform"
+              draggable={false}
               crossOrigin="anonymous"
               style={{
                 imageRendering: 'auto',
