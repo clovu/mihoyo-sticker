@@ -116,11 +116,14 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     }
   }
 
+  const MENU_HANDLER_RECORD = {
+    [MenuType.DOWNLOAD]: downloadSticker,
+    [MenuType.COPY_URL]: copeStickerURL
+  }
+
   function handleMenuClick(i: MenuType, s: Sticker) {
-    if (i === MenuType.DOWNLOAD)
-      downloadSticker(s)
-    else if (i === MenuType.COPY_URL)
-      copeStickerURL(s)
+    const handler = MENU_HANDLER_RECORD[i]
+    handler(s)
   }
 
   // handle history sticker and sort
