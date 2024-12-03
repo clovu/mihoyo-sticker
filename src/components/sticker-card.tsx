@@ -118,7 +118,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
   const MENU_HANDLER_RECORD = {
     [MenuType.DOWNLOAD]: downloadSticker,
-    [MenuType.COPY_URL]: copeStickerURL
+    [MenuType.COPY_URL]: copeStickerURL,
   }
 
   function handleMenuClick(i: MenuType, s: Sticker) {
