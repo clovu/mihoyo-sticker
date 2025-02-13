@@ -1,11 +1,8 @@
 import { ExclamationTriangleIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
-
-import { StickerCard } from '~/components/sticker-card'
+import { StickerPanel } from '~/components/panel'
 
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
-import { Button } from '~/components/ui/button'
-import { Input } from '~/components/ui/input'
 
 import { StickerClassify } from '~/types'
 
@@ -38,11 +35,7 @@ export default async function Home() {
           </AlertDescription>
         </Alert>
 
-        <StickerCard className="w-full" records={stickers} />
-        <div className="flex gap-2 mx-auto">
-          <Input placeholder="search your like sticker" />
-          <Button variant="outline">Search</Button>
-        </div>
+        <StickerPanel list={stickers} />
       </main>
       <footer className="flex direction-alternate flex-col gap-6 flex-wrap items-center justify-center">
         <a

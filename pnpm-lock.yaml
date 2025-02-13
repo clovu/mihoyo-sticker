@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@naiftools/string':
+        specifier: ^0.0.5
+        version: 0.0.5
       '@radix-ui/react-context-menu':
         specifier: ^2.2.6
         version: 2.2.6(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -587,6 +590,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@naiftools/string@0.0.5':
+    resolution: {integrity: sha512-DkXCSYZDvwdP2t5DHBxvz1ewSPrmWBKPqaMcDQ49MnQkI/gWlMNYqcEau+hhfIow+i1hXxIb/o04ozOOKemFYQ==}
 
   '@next/env@15.1.7':
     resolution: {integrity: sha512-d9jnRrkuOH7Mhi+LHav2XW91HOgTAWHxjMPkXMGBc9B2b7614P7kjt8tAplRvJpbSt4nbO1lugcT/kAaWzjlLQ==}
@@ -3328,6 +3334,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@naiftools/string@0.0.5': {}
 
   '@next/env@15.1.7': {}
 
