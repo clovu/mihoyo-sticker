@@ -17,10 +17,12 @@ export function StickerPanel({
 
   function filterSticker(value?: string) {
     if (hasText(value)) {
-      const stickers = list.map(group => {
-        const list = group.list.filter(it => it.name.indexOf(trim(value)) > -1)
-        return { ...group, list }
-      })
+      const stickers = list
+        .map(group => {
+          const list = group.list.filter(it => it.name.indexOf(trim(value)) > -1)
+          return { ...group, list }
+        })
+        .filter(it => it.list.length > 0)
       setRecords(stickers)
       return
     }
