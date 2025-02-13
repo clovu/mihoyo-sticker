@@ -30,13 +30,16 @@ interface StickerCardProps {
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {
   const defaultActiveId = findDefaultStickerClassify(records)?.id ?? 0
-  let { value: active, set: setActive } = useLocalStorageValue<number>('active-parant-id', {
+  const groupRecord = useLocalStorageValue<number>('active-parant-id', {
     initializeWithValue: false, defaultValue: defaultActiveId,
   })
+  const setActive = groupRecord.set
+  let active = groupRecord.value
 
   // check if not exists the group, use the first group
-  const hasActiveId = records.find(it => it.id === active)
-  if (!hasActiveId) active = records[0]?.id ?? 0
+  const hasActiveId = records.some(it => it.id === active)
+  if (!hasActiveId) active = records.at(0)?.id ?? 0
+
 
   const { value: historyStickerRecords, set: setHistory } = useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
 
