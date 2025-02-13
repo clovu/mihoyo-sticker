@@ -1,8 +1,6 @@
-import { ExclamationTriangleIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { StickerPanel } from '~/components/panel'
-
-import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
 
 import { StickerClassify } from '~/types'
 
@@ -27,14 +25,6 @@ export default async function Home() {
           draggable="false" />
       </div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-center w-screen sm:w-[750px] p-8 box-border">
-        <Alert variant="destructive">
-          <ExclamationTriangleIcon className="h-4 w-4" />
-          <AlertTitle>Alert</AlertTitle>
-          <AlertDescription>
-            The current website is under urgent development.
-          </AlertDescription>
-        </Alert>
-
         <StickerPanel list={stickers} />
       </main>
       <footer className="flex direction-alternate flex-col gap-6 flex-wrap items-center justify-center">
