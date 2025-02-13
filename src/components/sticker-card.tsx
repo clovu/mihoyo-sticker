@@ -19,8 +19,7 @@ import { HistoryStickerRecord, Sticker, StickerClassify } from '~/types'
 import * as clipboard from '~/lib/clipboard'
 import { toBlob, imgToConvas } from '~/lib/convas'
 import { cn } from '~/lib/utils'
-import { findDefaultStickerClassify } from '~/lib/sticker'
-import { handleHistorySticker } from '~/lib/strings'
+import { findDefaultStickerClassify, handleHistorySticker } from '~/lib/sticker'
 
 import { MenuType, StickerImg, StickerImgEvents } from './sticker-img'
 

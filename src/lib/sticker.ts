@@ -11,3 +11,12 @@ export function isEmpty(sticker: { icon: string }) {
 export function findDefaultStickerClassify(records: StickerClassify[]) {
   return records.find((sticker) => !isEmpty(sticker))
 }
+
+/**
+ * filter sticker history data and sort
+ */
+export function handleHistorySticker<T>(historyRecords: Record<number, [number, T]>) {
+  return Object.values(historyRecords || {})
+    .sort(([a], [b]) => b - a)
+    .map(([, sticker]) => sticker)
+}
