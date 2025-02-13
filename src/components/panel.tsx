@@ -13,6 +13,7 @@ export function StickerPanel({
   list = [],
 }: Readonly<{ list: StickerClassify[] }>) {
   const [records, setRecords] = React.useState(list)
+  const searchValue = React.useRef('')
 
   function filterSticker(value?: string) {
     if (hasText(value)) {
@@ -26,21 +27,35 @@ export function StickerPanel({
     setRecords(list)
   }
 
+  React.useEffect(() => {
+    filterSticker(searchValue.current)
+  }, [list])
+
   return <>
     <StickerCard className="w-full" records={records} />
-    <SearchInput onClick={filterSticker} />
+    <SearchInput
+      onSearch={() => filterSticker(searchValue.current)}
+      onChange={v => searchValue.current = v}
+    />
   </>
 }
 
 function SearchInput({
-  onClick,
-}: Readonly<{ onClick: (value?: string) => void }>) {
-  const [value, setValue] = React.useState<string>()
+  onSearch,
+  onChange,
+}: Readonly<{
+  onSearch: () => void
+  onChange: (value: string) => void
+}>) {
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSearch()
+  }
 
   return <>
-    <div className="flex gap-2 mx-auto">
-      <Input placeholder="search your like sticker" onInput={(e) => setValue(e.currentTarget.value)} />
-      <Button variant="outline" onClick={() => onClick(value)}>Search</Button>
-    </div>
+    <form className="flex gap-2 mx-auto" onSubmit={handleSubmit}>
+      <Input placeholder="search your like sticker" onInput={(e) => onChange(e.currentTarget.value)} />
+      <Button variant="outline" type="submit">Search</Button>
+    </form>
   </>
 }
