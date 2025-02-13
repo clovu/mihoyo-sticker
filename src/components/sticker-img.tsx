@@ -37,7 +37,7 @@ export function StickerImg({ it, onClick, onMenuClick }: StickerImgProps) {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <HoverCard openDelay={0} closeDelay={0}>
+        <HoverCard closeDelay={0}>
           <HoverCardTrigger asChild>
             <figure
               className={cn(
