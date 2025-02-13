@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import React from 'react'
 import { toast } from 'sonner'
 import { BellIcon, CountdownTimerIcon } from '@radix-ui/react-icons'
 import { useLocalStorageValue } from '@react-hookz/web'
@@ -30,9 +30,12 @@ interface StickerCardProps {
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {
   const defaultActiveId = findDefaultStickerClassify(records)?.id ?? 0
-  const { value: active, set: setActive } = useLocalStorageValue<number>('active-parant-id', {
+  let { value: active, set: setActive } = useLocalStorageValue<number>('active-parant-id', {
     initializeWithValue: false, defaultValue: defaultActiveId,
   })
+
+  const hasActiveId = records.find(it => it.id === active)
+  if (!hasActiveId) active = records[0].id ?? 0
 
   const { value: historyStickerRecords, set: setHistory } = useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
 
@@ -133,7 +136,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   const stickers = [historyClassify, ...records].find(({ id }) => id === active)
   const stickerList = stickers?.list ?? []
 
-  function classifyBarRenderer(el?: ReactNode) {
+  function classifyBarRenderer(el?: React.ReactNode) {
     return <>
       <Button
         variant="outline"
