@@ -158,15 +158,15 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
         </ScrollArea>
       </CardContent>
       <Separator />
-      <CardFooter className="overflow-hidden p-4">
-        <ScrollArea className="w-full">
+      <CardFooter className="overflow-hidden py-0 px-4">
+        <ScrollArea className="w-full py-4">
           <StickerClassifyBar
             data={records}
             activeId={active}
             onClick={setActive}
             renderer={classifyBarRenderer}
           />
-          <ScrollBar orientation="horizontal" />
+          <ScrollBar orientation="horizontal" className="absolute !bottom-[3px]" />
         </ScrollArea>
       </CardFooter>
     </Card>
