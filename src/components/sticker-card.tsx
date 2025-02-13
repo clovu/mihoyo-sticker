@@ -37,9 +37,10 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   let active = groupRecord.value
 
   // check if not exists the group, use the first group
-  const hasActiveId = records.some(it => it.id === active)
-  if (!hasActiveId) active = records.at(0)?.id ?? 0
-
+  if (active !== 0) {
+    const hasActiveId = records.some(it => it.id === active)
+    if (!hasActiveId) active = records.at(0)?.id ?? 0
+  }
 
   const { value: historyStickerRecords, set: setHistory } = useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
 
