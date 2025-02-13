@@ -10,6 +10,7 @@
  */
 import { ReactNode } from 'react'
 import Image from 'next/image'
+import { isBlank } from '@naiftools/string'
 
 import { Sticker, StickerClassify } from '~/types'
 import { cn } from '~/lib/utils'
@@ -27,7 +28,7 @@ interface StickerClassifyBarProps {
 
 export function StickerClassifyBar({ data = [], activeId, onClick, renderer }: StickerClassifyBarProps) {
   const classifyList = data.map(({ icon, name, id }) => {
-    if (icon.length === 0) return
+    if (isBlank(icon)) return
 
     return (
       <div

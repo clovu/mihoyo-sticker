@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@naiftools/array':
+        specifier: ^0.0.8
+        version: 0.0.8
       '@naiftools/string':
         specifier: ^0.0.5
         version: 0.0.5
@@ -590,6 +593,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@naiftools/array@0.0.8':
+    resolution: {integrity: sha512-gPHvodfHford0fR7BpkwpPvxTn81j+SQWe6cjeHcXihTGOOaaN66YZGUkn3FWgjwVOG0L8P+ND2i7n3+uVpkSg==}
 
   '@naiftools/string@0.0.5':
     resolution: {integrity: sha512-DkXCSYZDvwdP2t5DHBxvz1ewSPrmWBKPqaMcDQ49MnQkI/gWlMNYqcEau+hhfIow+i1hXxIb/o04ozOOKemFYQ==}
@@ -3334,6 +3340,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@naiftools/array@0.0.8': {}
 
   '@naiftools/string@0.0.5': {}
 

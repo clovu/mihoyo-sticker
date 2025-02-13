@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { hasText, trim } from '@naiftools/string'
+import { isNotEmpty } from '@naiftools/array'
 
 import type { StickerClassify } from '~/types'
 
@@ -22,7 +23,7 @@ export function StickerPanel({
           const list = group.list.filter(it => it.name.indexOf(trim(value)) > -1)
           return { ...group, list }
         })
-        .filter(it => it.list.length > 0)
+        .filter(it => isNotEmpty(it.list))
       setRecords(stickers)
       return
     }

@@ -1,8 +1,8 @@
 import { StickerClassify } from '~/types'
-import * as strings from './strings'
+import { isBlank } from '@naiftools/string'
 
 export function isEmpty(sticker: { icon: string }) {
-  return strings.blankText(sticker.icon)
+  return isBlank(sticker.icon)
 }
 
 /**
