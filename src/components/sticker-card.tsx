@@ -158,8 +158,8 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   return (
     <Card className={className}>
       <Toaster />
-      <CardContent className="overflow-hidden pb-0">
-        <ScrollArea className="max-h-[300px] h-52 py-2">
+      <CardContent className="overflow-hidden p-4 pb-0 pr-2">
+        <ScrollArea className="max-h-[300px] h-52 pr-2">
           <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
             <StickerRenderer stickers={stickerList} onMenuClick={handleMenuClick} onClick={onCopy} />
           </div>
