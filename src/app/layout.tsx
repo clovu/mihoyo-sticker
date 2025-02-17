@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   title: 'MiHoYo Sticker',
   description: 'A simple tool to copy, download, and manage MiYuShe stickers, making sharing and usage effortless across platforms.',
   keywords: ['MiHoYo', 'mhy', '米哈游', '表情包', 'sticker', '米游社', 'furina', '芙宁娜'],
+  verification: {
+    other: {
+      'baidu-site-verification': 'codeva-H7naUSFHbH',
+    },
+  },
 }
 
 export default function RootLayout({
