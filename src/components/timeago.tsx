@@ -9,5 +9,5 @@ export default function TimeAgoComponent({
 }>) {
   // In JavaScript, Date conversion uses local timezone if the date string contains timezone information
   const timestamp = new Date(date).getTime()
-  return <TimeAgo date={timestamp} minPeriod={30} suppressHydrationWarning />
+  return <TimeAgo date={timestamp} suppressHydrationWarning />
 }
