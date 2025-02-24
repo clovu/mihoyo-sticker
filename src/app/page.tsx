@@ -1,6 +1,8 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+
 import { StickerPanel } from '~/components/panel'
+import TimeAgoComponent from '~/components/timeago'
 
 import { StickerClassify } from '~/types'
 
@@ -14,6 +16,8 @@ async function getStickerRecords() {
 
 export default async function Home() {
   const stickers = await getStickerRecords()
+  const today = new Date()
+  const dateString = today.toUTCString()
 
   return (
     <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
@@ -37,6 +41,10 @@ export default async function Home() {
           <GitHubLogoIcon />
           GitHub
         </a>
+
+        <span className="text-muted-foreground/50 text-sm" suppressHydrationWarning>
+          Data update time: <TimeAgoComponent date={dateString} />
+        </span>
 
         <span className="text-muted-foreground/50 text-sm">
           © 2024-PRESENT
