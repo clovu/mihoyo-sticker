@@ -7,7 +7,7 @@
 
 # MiHoYo Sticker
 
-[**mihoyo-sticker**](https://github.com/Clover-You/mihoyo-sticker) 是一个开源项目，用于收集和分享米哈游产品“米游社”中的表情包。通过这个网站可以方便地使用这些表情包，在社区以外的地方也能轻松分享和使用。
+[**mihoyo-sticker**](https://github.com/clovu/mihoyo-sticker) 是一个开源项目，用于收集和分享米哈游产品“米游社”中的表情包。通过这个网站可以方便地使用这些表情包，在社区以外的地方也能轻松分享和使用。
 
 该项目使用 [next.js](https://github.com/vercel/next.js) + [shadcn/ui](https://github.com/shadcn-ui/ui) 开发
 
@@ -23,7 +23,7 @@
 1. **克隆项目**：
 
    ```bash
-   git clone git@github.com:Clover-You/mihoyo-sticker.git
+   git clone git@github.com:clovu/mihoyo-sticker.git
    ```
 
 2. **安装依赖**：
@@ -50,4 +50,4 @@
 
 ## 许可证
 
-MIT License © 2024 [Clover You](https://github.com/Clover-You)
+MIT License © 2024 [Clover You](https://github.com/clovu)
