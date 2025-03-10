@@ -7,7 +7,7 @@
 
 # MiHoYo Sticker
 
-[**mihoyo-sticker**](https://github.com/Clover-You/mihoyo-sticker) is an open-source project designed to collect and share stickers from miHoYo's "MiYuShe" platform. This website makes it easy to use these stickers and share them effortlessly beyond the community.
+[**mihoyo-sticker**](https://github.com/clovu/mihoyo-sticker) is an open-source project designed to collect and share stickers from miHoYo's "MiYuShe" platform. This website makes it easy to use these stickers and share them effortlessly beyond the community.
 
 The project is developed using Next.js and shadcn/ui.
 
@@ -23,7 +23,7 @@ The project is developed using Next.js and shadcn/ui.
 1. **Clone the Project**:
 
    ```bash
-   git clone git@github.com:Clover-You/mihoyo-sticker.git
+   git clone git@github.com:clovu/mihoyo-sticker.git
    ```
 
 2. **Install Dependencies**:
@@ -50,4 +50,4 @@ Contributions of any kind are welcome! If you have ideas or suggestions, feel fr
 
 ## License
 
-MIT License © 2024 [Clover You](https://github.com/Clover-You)
+MIT License © 2024 [Clover You](https://github.com/clovu)
