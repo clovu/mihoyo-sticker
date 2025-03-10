@@ -34,7 +34,7 @@ export default async function Home() {
       <footer className="flex direction-alternate flex-col gap-6 flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-muted-foreground/50 hover:text-muted-foreground/100"
-          href="https://github.com/Clover-You/mihoyo-sticker"
+          href="https://github.com/clovu/mihoyo-sticker"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -48,7 +48,7 @@ export default async function Home() {
 
         <span className="text-muted-foreground/50 text-sm">
           © 2024-PRESENT
-          <Link href="https://github.com/Clover-You" className="ml-2" target="_blank">Clover You</Link>
+          <Link href="https://github.com/clovu" className="ml-2" target="_blank">Clover You</Link>
         </span>
       </footer>
     </div>
