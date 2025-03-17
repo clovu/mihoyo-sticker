@@ -1,6 +1,6 @@
 type StickerStatus = 'draft' | 'published'
 
-export interface StickerClassify {
+export interface StickerGroup {
   id: number
   name: string
   icon: string

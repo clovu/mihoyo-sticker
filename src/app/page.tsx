@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { StickerPanel } from '~/components/panel'
 import TimeAgoComponent from '~/components/timeago'
 
-import { StickerClassify } from '~/types'
+import { StickerGroup } from '~/types'
 
 const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'
 
 async function getStickerRecords() {
   const resp = await fetch(SERVER_URL)
   const respJson = await resp.json()
-  return respJson.data.list as StickerClassify[]
+  return respJson.data.list as StickerGroup[]
 }
 
 export default async function Home() {

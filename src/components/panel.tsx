@@ -4,7 +4,7 @@ import React from 'react'
 import { hasText, trim } from '@naiftools/string'
 import { isNotEmpty } from '@naiftools/array'
 
-import type { StickerClassify } from '~/types'
+import type { StickerGroup } from '~/types'
 
 import { StickerCard } from './sticker-card'
 import { Input } from './ui/input'
@@ -12,7 +12,7 @@ import { Button } from './ui/button'
 
 export function StickerPanel({
   list = [],
-}: Readonly<{ list: StickerClassify[] }>) {
+}: Readonly<{ list: StickerGroup[] }>) {
   const [records, setRecords] = React.useState(list)
   const searchValue = React.useRef('')
 

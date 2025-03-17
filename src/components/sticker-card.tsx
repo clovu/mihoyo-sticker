@@ -14,7 +14,7 @@ import { Toaster } from './ui/sonner'
 import { Button } from './ui/button'
 
 
-import { HistoryStickerRecord, Sticker, StickerClassify } from '~/types'
+import { HistoryStickerRecord, Sticker, StickerGroup } from '~/types'
 
 import * as clipboard from '~/lib/clipboard'
 import { toBlob, imgToConvas } from '~/lib/convas'
@@ -25,7 +25,7 @@ import { MenuType, StickerImg, StickerImgEvents } from './sticker-img'
 
 interface StickerCardProps {
   className?: string
-  records?: StickerClassify[]
+  records?: StickerGroup[]
 }
 
 export function StickerCard({ className, records = [] }: StickerCardProps) {

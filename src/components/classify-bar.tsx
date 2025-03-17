@@ -12,12 +12,12 @@ import { ReactNode } from 'react'
 import Image from 'next/image'
 import { isBlank } from '@naiftools/string'
 
-import { Sticker, StickerClassify } from '~/types'
+import { Sticker, StickerGroup } from '~/types'
 import { cn } from '~/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
-type Classify = Omit<StickerClassify, 'list'> & { list?: Sticker[] }
+type Classify = Omit<StickerGroup, 'list'> & { list?: Sticker[] }
 
 interface StickerClassifyBarProps {
   data?: Classify[]

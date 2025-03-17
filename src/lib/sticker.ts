@@ -1,4 +1,4 @@
-import { StickerClassify } from '~/types'
+import { StickerGroup } from '~/types'
 import { isBlank } from '@naiftools/string'
 
 export function isEmpty(sticker: { icon: string }) {
@@ -8,7 +8,7 @@ export function isEmpty(sticker: { icon: string }) {
 /**
  * Find a sticker classify that can be the default, usually the first
  */
-export function findDefaultStickerClassify(records: StickerClassify[]) {
+export function findDefaultStickerClassify(records: StickerGroup[]) {
   return records.find((sticker) => !isEmpty(sticker))
 }
 
