@@ -15,9 +15,15 @@ async function getStickerRecords() {
 }
 
 export default async function Home() {
-  const stickers = await getStickerRecords()
+  const list = await getStickerRecords()
   const today = new Date()
   const dateString = today.toUTCString()
+
+  sortGroup(list)
+
+  function sortGroup(list: StickerGroup[]) {
+    return list.sort((a, b) => a.sort_order - b.sort_order)
+  }
 
   return (
     <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
@@ -29,7 +35,7 @@ export default async function Home() {
           draggable="false" />
       </div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-center w-screen sm:w-[750px] p-8 box-border">
-        <StickerPanel list={stickers} />
+        <StickerPanel list={list} />
       </main>
       <footer className="flex direction-alternate flex-col gap-6 flex-wrap items-center justify-center">
         <a
