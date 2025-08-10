@@ -1,9 +1,10 @@
 import globals from 'globals'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
-import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js'
-import { fixupConfigRules } from '@eslint/compat'
+import react from 'eslint-plugin-react'
 import reactCompiler from 'eslint-plugin-react-compiler'
+
+
 
 export default [
   {
@@ -15,11 +16,11 @@ export default [
     },
     plugins: {
       'react-compiler': reactCompiler,
+      react,
     },
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  ...fixupConfigRules(pluginReactConfig),
   {
     settings: {
       react: {
