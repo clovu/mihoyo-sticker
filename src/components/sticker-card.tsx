@@ -28,6 +28,8 @@ interface StickerCardProps {
   records?: StickerGroup[]
 }
 
+const DEFAULT_MIME = 'image/png'
+
 export function StickerCard({ className, records = [] }: StickerCardProps) {
   const defaultActiveId = findDefaultStickerClassify(records)?.id ?? 0
   const groupRecord = useLocalStorageValue<number>('active-parant-id', {
@@ -84,10 +86,10 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
   }
 
   function guessMimeType(url: string) {
-    if (url.endsWith('.png')) return 'image/png'
+    if (url.endsWith('.png')) return DEFAULT_MIME
     if (url.endsWith('.jpg') || url.endsWith('.jpeg')) return 'image/jpeg'
     if (url.endsWith('.gif')) return 'image/gif'
-    return 'image/png'
+    return DEFAULT_MIME
   }
 
   function isGIF(img: HTMLImageElement) {
@@ -141,7 +143,7 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       })
     })
     return new ClipboardItem(
-      { 'image/png': blobPromise },
+      { [DEFAULT_MIME]: blobPromise },
       { presentationStyle: 'attachment' },
     )
   }
