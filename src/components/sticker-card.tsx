@@ -44,7 +44,8 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     if (!hasActiveId) active = records.at(0)?.id ?? 0
   }
 
-  const { value: historyStickerRecords, set: setHistory } = useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
+  const { value: historyStickerRecords, set: setHistory } =
+    useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
 
   function addHistory(s: Sticker) {
     if (!historyStickerRecords)
