@@ -100,12 +100,12 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     if (isGIF(img))
       return createGIFClipboardItem(img)
 
-    const makeBlobPromise = fetch(img.src, { cache: 'force-cache' })
+    const blobPromise = fetch(img.src, { cache: 'force-cache' })
       .then(r => r.blob())
 
     // Using Promise-in-ClipboardItem to solve the Safari transient-activation issue
     return new ClipboardItem(
-      { [guessMimeType(img.src)]: makeBlobPromise },
+      { [guessMimeType(img.src)]: blobPromise },
       { presentationStyle: 'attachment' },
     )
   }
@@ -134,14 +134,14 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     const canvas = imgToConvas(img)
     if (!canvas) return
 
-    const makeBlobPromise = new Promise<Blob>((resolve, reject) => {
+    const blobPromise = new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((blob) => {
         if (blob) resolve(blob)
         else reject('GIF to png conversion process encountered an unexpected exception.')
       })
     })
     return new ClipboardItem(
-      { 'image/png': makeBlobPromise },
+      { 'image/png': blobPromise },
       { presentationStyle: 'attachment' },
     )
   }
