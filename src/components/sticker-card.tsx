@@ -17,7 +17,7 @@ import { Button } from './ui/button'
 import { HistoryStickerRecord, Sticker, StickerGroup } from '~/types'
 
 import * as clipboard from '~/lib/clipboard'
-import { toBlob, imgToConvas } from '~/lib/convas'
+import { imgToConvas } from '~/lib/convas'
 import { cn } from '~/lib/utils'
 import { findDefaultStickerClassify, handleHistorySticker } from '~/lib/sticker'
 
@@ -59,20 +59,65 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     toast.error('Error', { description: errMsg, richColors: true, position: 'top-right' })
   }
 
+  function isImageErrorComplete(image: HTMLImageElement) {
+    return image.complete && image.naturalWidth === 0
+  }
+
+  function isStickerImageValid(img: HTMLImageElement, name: string) {
+    if (!img.complete) {
+      toast.warning(`Sticker 「${name}」 is loading...`, {
+        position: 'top-right',
+        richColors: true,
+        icon: <BellIcon />,
+      })
+      return false
+    }
+    if (isImageErrorComplete(img)) {
+      toast.error(`Sticker 「${name}」 failed to load.`, {
+        position: 'top-right',
+        richColors: true,
+        icon: <BellIcon />,
+      })
+      return false
+    }
+    return true
+  }
+
+  function guessMimeType(url: string) {
+    if (url.endsWith('.png')) return 'image/png'
+    if (url.endsWith('.jpg') || url.endsWith('.jpeg')) return 'image/jpeg'
+    if (url.endsWith('.gif')) return 'image/gif'
+    return 'image/png'
+  }
+
+  function isGIF(img: HTMLImageElement) {
+    return img.src.endsWith('.gif')
+  }
+
+  function clipboardItemCreator(img: HTMLImageElement) {
+    // The browser does not support GIF copy to clipboard by defalt.
+    // So, if it is a GIF image, it needs to be converted to canvas to take the first frame of the image.
+    if (isGIF(img))
+      return createGIFClipboardItem(img)
+
+    const makeBlobPromise = fetch(img.src, { cache: 'force-cache' })
+      .then(r => r.blob())
+
+    // Using Promise-in-ClipboardItem to solve the Safari transient-activation issue
+    return new ClipboardItem(
+      { [guessMimeType(img.src)]: makeBlobPromise },
+      { presentationStyle: 'attachment' },
+    )
+  }
+
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
+    if (!isStickerImageValid(img, sticker.name)) return
 
     try {
-      const canvas = imgToConvas(img)
-      if (!canvas) return
-
-      const blob = toBlob(canvas)
-      if (!blob) return
-
-      const clipboardItem = [new ClipboardItem({ [blob.type]: blob })]
-      // it must be invoked within a user-triggered event (e.g., click event).
-      // see: https://webkit.org/blog/10247/new-webkit-features-in-safari-13-1/
-      await navigator.clipboard.write(clipboardItem)
+      const clipboardItem = clipboardItemCreator(img)
+      if (!clipboardItem) return
+      await navigator.clipboard.write([clipboardItem])
 
       toast(`You copied 「${sticker.name}」`, {
         position: 'top-right',
@@ -83,6 +128,22 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
     } catch (e) {
       handleError(e)
     }
+  }
+
+  function createGIFClipboardItem(img: HTMLImageElement) {
+    const canvas = imgToConvas(img)
+    if (!canvas) return
+
+    const makeBlobPromise = new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob)
+        else reject('GIF to png conversion process encountered an unexpected exception.')
+      })
+    })
+    return new ClipboardItem(
+      { 'image/png': makeBlobPromise },
+      { presentationStyle: 'attachment' },
+    )
   }
 
   /**
