@@ -1,6 +1,7 @@
 'use client'
 
-import TimeAgo, { Props as TimeAgoPros } from 'react-timeago'
+import TimeAgo from 'react-timeago'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 
 export default function TimeAgoComponent({
   date,
@@ -9,19 +10,7 @@ export default function TimeAgoComponent({
 }>) {
   // In JavaScript, Date conversion uses local timezone if the date string contains timezone information
   const timestamp = new Date(date).getTime()
-
-  const formatter: TimeAgoPros['formatter'] = (
-    value,
-    unit,
-    suffix,
-    epochMiliseconds,
-    nextFormatter,
-    now,
-  ) => {
-    if (unit === 'second')
-      return 'now'
-    return nextFormatter(value, unit, suffix, epochMiliseconds, nextFormatter, now)
-  }
+  const formatter = buildFormatter({ seconds: 'now' })
 
   return <TimeAgo date={timestamp} minPeriod={10} formatter={formatter} />
 }
