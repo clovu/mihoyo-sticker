@@ -6,9 +6,9 @@ export function isEmpty(sticker: { icon: string }) {
 }
 
 /**
- * Find a sticker classify that can be the default, usually the first
+ * Find a sticker group that can be the default, usually the first
  */
-export function findDefaultStickerClassify(records: StickerGroup[]) {
+export function findDefaultGroup(records: StickerGroup[]) {
   return records.find((sticker) => !isEmpty(sticker))
 }
 

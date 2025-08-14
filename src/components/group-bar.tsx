@@ -1,7 +1,7 @@
 'use client'
 /**
  * <p>
- * Classify Bar
+ * Group Bar
  * </p>
  *
  * @version: v1.0
@@ -17,17 +17,22 @@ import { cn } from '~/lib/utils'
 
 import { buttonVariants } from './ui/button'
 
-type Classify = Omit<StickerGroup, 'list'> & { list?: Sticker[] }
+type PartialStickerGroup = Omit<StickerGroup, 'list'> & { list?: Sticker[] }
 
-interface StickerClassifyBarProps {
-  data?: Classify[]
+interface StickerGroupBarProps {
+  data?: PartialStickerGroup[]
   activeId?: number
   onClick?: (id: number) => void
   renderer?: (e?: ReactNode) => ReactNode
 }
 
-export function StickerClassifyBar({ data = [], activeId, onClick, renderer }: StickerClassifyBarProps) {
-  const classifyList = data.map(({ icon, name, id }) => {
+export function StickerGroupBar({
+  data = [],
+  activeId,
+  onClick,
+  renderer,
+}: StickerGroupBarProps) {
+  const groups = data.map(({ icon, name, id }) => {
     if (isBlank(icon)) return
 
     return (
@@ -53,7 +58,7 @@ export function StickerClassifyBar({ data = [], activeId, onClick, renderer }: S
 
   return (
     <div className="flex w-max space-x-2">
-      {renderer ? renderer(classifyList) : classifyList}
+      {renderer ? renderer(groups) : groups}
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { useLocalStorageValue } from '@react-hookz/web'
 
 import { Card, CardContent, CardFooter } from '~/components/ui/card'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
-import { StickerClassifyBar } from '~/components/classify-bar'
+import { StickerGroupBar } from '~/components/group-bar'
 
 import { Separator } from './ui/separator'
 import { Toaster } from './ui/sonner'
@@ -19,29 +19,28 @@ import { HistoryStickerRecord, Sticker, StickerGroup } from '~/types'
 import * as clipboard from '~/lib/clipboard'
 import { imgToConvas } from '~/lib/convas'
 import { cn } from '~/lib/utils'
-import { findDefaultStickerClassify, handleHistorySticker } from '~/lib/sticker'
+import { findDefaultGroup, handleHistorySticker } from '~/lib/sticker'
 
 import { MenuType, StickerImg, StickerImgEvents } from './sticker-img'
 
 interface StickerCardProps {
   className?: string
-  records?: StickerGroup[]
+  groups?: StickerGroup[]
 }
 
 const DEFAULT_MIME = 'image/png'
 
-export function StickerCard({ className, records = [] }: StickerCardProps) {
-  const defaultActiveId = findDefaultStickerClassify(records)?.id ?? 0
-  const groupRecord = useLocalStorageValue<number>('active-parant-id', {
-    initializeWithValue: false, defaultValue: defaultActiveId,
+export function StickerCard({ className, groups = [] }: StickerCardProps) {
+  const defaultActiveId = findDefaultGroup(groups)?.id ?? 0
+  let { set: setActive, value: active } = useLocalStorageValue<number>('active-parant-id', {
+    initializeWithValue: false,
+    defaultValue: defaultActiveId,
   })
-  const setActive = groupRecord.set
-  let active = groupRecord.value
 
   // check if not exists the group, use the first group
   if (active !== 0) {
-    const hasActiveId = records.some(it => it.id === active)
-    if (!hasActiveId) active = records.at(0)?.id ?? 0
+    const hasActiveId = groups.some(it => it.id === active)
+    if (!hasActiveId) active = groups.at(0)?.id ?? 0
   }
 
   const { value: historyStickerRecords, set: setHistory } =
@@ -199,13 +198,13 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
 
   // handle history sticker and sort
   const historyStickers = handleHistorySticker(historyStickerRecords || {})
-  const historyClassify = { id: 0, name: 'History', list: historyStickers }
+  const historyGroup = { id: 0, name: 'History', list: historyStickers }
 
-  // find the current selected classify
-  const stickers = [historyClassify, ...records].find(({ id }) => id === active)
-  const stickerList = stickers?.list ?? []
+  // find the current selected group
+  const currGroup = [historyGroup, ...groups].find(({ id }) => id === active)
+  const currGroupStickers = currGroup?.list ?? []
 
-  function classifyBarRenderer(el?: React.ReactNode) {
+  function GroupBarRenderer(el?: React.ReactNode) {
     return <>
       <Button
         variant="outline"
@@ -216,7 +215,8 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       >
         <CountdownTimerIcon />
       </Button>
-      {el}</>
+      {el}
+    </>
   }
 
   return (
@@ -225,18 +225,18 @@ export function StickerCard({ className, records = [] }: StickerCardProps) {
       <CardContent className="overflow-hidden p-4 pb-0 pr-2">
         <ScrollArea className="max-h-[300px] h-52 pr-2">
           <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
-            <StickerRenderer stickers={stickerList} onMenuClick={handleMenuClick} onClick={onCopy} />
+            <StickerRenderer stickers={currGroupStickers} onMenuClick={handleMenuClick} onClick={onCopy} />
           </div>
         </ScrollArea>
       </CardContent>
       <Separator />
       <CardFooter className="overflow-hidden py-0 px-4">
         <ScrollArea className="w-full py-4">
-          <StickerClassifyBar
-            data={records}
+          <StickerGroupBar
+            data={groups}
             activeId={active}
             onClick={setActive}
-            renderer={classifyBarRenderer}
+            renderer={GroupBarRenderer}
           />
           <ScrollBar orientation="horizontal" className="absolute !bottom-[3px]" />
         </ScrollArea>

@@ -13,21 +13,21 @@ import { Button } from './ui/button'
 export function StickerPanel({
   list = [],
 }: Readonly<{ list: StickerGroup[] }>) {
-  const [records, setRecords] = React.useState(list)
+  const [groups, setGroups] = React.useState(list)
   const searchValue = React.useRef('')
 
   function filterSticker(value?: string) {
     if (hasText(value)) {
-      const stickers = list
+      const groups = list
         .map(group => {
           const list = group.list.filter(it => it.name.indexOf(trim(value)) > -1)
           return { ...group, list }
         })
         .filter(it => isNotEmpty(it.list))
-      setRecords(stickers)
+      setGroups(groups)
       return
     }
-    setRecords(list)
+    setGroups(list)
   }
 
   React.useEffect(() => {
@@ -35,7 +35,7 @@ export function StickerPanel({
   }, [list])
 
   return <>
-    <StickerCard className="w-full" records={records} />
+    <StickerCard className="w-full" groups={groups} />
     <SearchInput
       onSearch={() => filterSticker(searchValue.current)}
       onChange={v => searchValue.current = v}
