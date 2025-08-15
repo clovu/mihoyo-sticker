@@ -5,6 +5,7 @@ import { StickerPanel } from '~/components/panel'
 import TimeAgoComponent from '~/components/timeago'
 
 import { StickerGroup } from '~/types'
+import DesktopPage from './desktop'
 
 const SERVER_URL = 'https://bbs-api-static.miyoushe.com/misc/api/emoticon_set'
 
@@ -24,6 +25,9 @@ export default async function Home() {
   function sortGroup(list: StickerGroup[]) {
     return list.sort((a, b) => a.sort_order - b.sort_order)
   }
+
+  if (process.env.NEXT_PUBLIC_PLATFORM === 'desktop')
+    return <DesktopPage list={groups} />
 
   return (
     <div className="grid sm:justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">

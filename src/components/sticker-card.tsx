@@ -23,14 +23,22 @@ import { findDefaultGroup, handleHistorySticker } from '~/lib/sticker'
 
 import { MenuType, StickerImg, StickerImgEvents } from './sticker-img'
 
+import { invoke } from '@tauri-apps/api/core'
+
 interface StickerCardProps {
   className?: string
+  scrollAreaClassName?: string
   groups?: StickerGroup[]
+  header?: React.ReactNode | undefined
 }
+
+
 
 const DEFAULT_MIME = 'image/png'
 
-export function StickerCard({ className, groups = [] }: StickerCardProps) {
+export function StickerCard({
+  className, groups = [], header, scrollAreaClassName,
+}: StickerCardProps) {
   const defaultActiveId = findDefaultGroup(groups)?.id ?? 0
   let { set: setActive, value: active } = useLocalStorageValue<number>('active-parant-id', {
     initializeWithValue: false,
@@ -112,19 +120,43 @@ export function StickerCard({ className, groups = [] }: StickerCardProps) {
     )
   }
 
+  function handleDesktopCopyEvent(event: React.MouseEvent<HTMLImageElement>) {
+    const img = event.currentTarget
+    fetch(img.src, { cache: 'force-cache' })
+      .then(r =>
+        r.blob().then((blob) =>
+          blob.arrayBuffer().then((buffer) => [buffer, blob.type] as const),
+        ),
+      )
+      .then(([buffer, mime]) => {
+        console.log(mime)
+        invoke('copy_image', { data: buffer, mime })
+      })
+
+    return
+  }
+
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
     if (!isStickerImageValid(img, sticker.name)) return
 
-    try {
-      const clipboardItem = clipboardItemCreator(img)
-      if (!clipboardItem) return
-      await navigator.clipboard.write([clipboardItem])
 
-      toast(`You copied 「${sticker.name}」`, {
-        position: 'top-right',
-        icon: <BellIcon />,
-      })
+
+
+    try {
+      if (process.env.NEXT_PUBLIC_PLATFORM === 'desktop') {
+        handleDesktopCopyEvent(event)
+        return
+      } else {
+        const clipboardItem = clipboardItemCreator(img)
+        if (!clipboardItem) return
+        await navigator.clipboard.write([clipboardItem])
+
+        toast(`You copied 「${sticker.name}」`, {
+          position: 'top-right',
+          icon: <BellIcon />,
+        })
+      }
 
       addHistory(sticker)
     } catch (e) {
@@ -222,8 +254,9 @@ export function StickerCard({ className, groups = [] }: StickerCardProps) {
   return (
     <Card className={className}>
       <Toaster />
+      {header}
       <CardContent className="overflow-hidden p-4 pb-0 pr-2">
-        <ScrollArea className="max-h-[300px] h-52 pr-2">
+        <ScrollArea className={cn('max-h-[300px] h-52 pr-2', scrollAreaClassName)}>
           <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
             <StickerRenderer stickers={currGroupStickers} onMenuClick={handleMenuClick} onClick={onCopy} />
           </div>

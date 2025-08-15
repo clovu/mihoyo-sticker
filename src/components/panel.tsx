@@ -12,7 +12,8 @@ import { Button } from './ui/button'
 
 export function StickerPanel({
   list = [],
-}: Readonly<{ list: StickerGroup[] }>) {
+  style: panelStyle,
+}: Readonly<{ list: StickerGroup[], style?: 'command' }>) {
   const [groups, setGroups] = React.useState(list)
   const searchValue = React.useRef('')
 
@@ -34,6 +35,9 @@ export function StickerPanel({
     filterSticker(searchValue.current)
   }, [list])
 
+  if (panelStyle === 'command')
+    return <CommandStickerPanel list={groups} filter={filterSticker} />
+
   return <>
     <StickerCard className="w-full" groups={groups} />
     <SearchInput
@@ -43,12 +47,37 @@ export function StickerPanel({
   </>
 }
 
+function CommandStickerPanel({
+  list,
+  filter,
+}: Readonly<{ list: StickerGroup[], filter: (s?: string) => void }>) {
+  const searchValue = React.useRef('')
+  return <>
+    <StickerCard
+      className="w-screen overflow-hidden border-none"
+      scrollAreaClassName="h-screen"
+      groups={list}
+      header={
+        <div className="p-4 pb-0">
+          <SearchInput
+            onSearch={() => filter(searchValue.current)}
+            onChange={v => searchValue.current = v}
+            hideBtn
+          />
+        </div>
+      }
+    />
+  </>
+}
+
 function SearchInput({
   onSearch,
   onChange,
+  hideBtn,
 }: Readonly<{
   onSearch: () => void
   onChange: (value: string) => void
+  hideBtn?: boolean
 }>) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -58,7 +87,7 @@ function SearchInput({
   return <>
     <form className="flex gap-2 mx-auto" onSubmit={handleSubmit}>
       <Input placeholder="search your like sticker" onInput={(e) => onChange(e.currentTarget.value)} />
-      <Button variant="outline" type="submit">Search</Button>
+      {!hideBtn && <Button variant="outline" type="submit">Search</Button>}
     </form>
   </>
 }

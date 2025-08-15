@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 
 import { ThemeProvider } from '~/lib/provider/theme-provider'
+import { cn } from '~/lib/utils'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -18,7 +19,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'MiHoYo Sticker',
-  description: 'A simple tool to copy, download, and manage MiYuShe stickers, making sharing and usage effortless across platforms.',
+  description: 'A simple tool to copy, download, and manage MiYuShe stickers, making sharing and usage effortless across NEXT_PUBLIC_PLATFORMs.',
   keywords: ['MiHoYo', 'mhy', '米哈游', '表情包', 'sticker', '米游社', 'furina', '芙宁娜'],
   verification: {
     other: {
@@ -35,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`,
+          process.env.NEXT_PUBLIC_PLATFORM === 'desktop' ? 'overflow-hidden h-screen' : '',
+        )}
       >
         <ThemeProvider>
           {children}

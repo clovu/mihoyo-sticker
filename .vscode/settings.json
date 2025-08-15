@@ -64,5 +64,13 @@
       "rule": "*semi",
       "severity": "off"
     }
+  ],
+  "cSpell.words": [
+    "hookz",
+    "mihoyo",
+    "nspanel",
+    "NSURL",
+    "objc",
+    "sonner"
   ]
 }
