@@ -4,6 +4,9 @@ import localFont from 'next/font/local'
 import './globals.css'
 
 import { ThemeProvider } from '~/lib/provider/theme-provider'
+import { SEO } from '~/components/seo'
+
+import { description, keywords } from '~/seo'
 import { cn } from '~/lib/utils'
 
 const geistSans = localFont({
@@ -18,9 +21,9 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'MiHoYo Sticker',
-  description: 'A simple tool to copy, download, and manage MiYuShe stickers, making sharing and usage effortless across NEXT_PUBLIC_PLATFORMs.',
-  keywords: ['MiHoYo', 'mhy', '米哈游', '表情包', 'sticker', '米游社', 'furina', '芙宁娜'],
+  title: 'MiHoYo Sticker Archive – HoYoverse Stickers & Emojis',
+  description,
+  keywords,
   verification: {
     other: {
       'baidu-site-verification': 'codeva-H7naUSFHbH',
@@ -40,6 +43,7 @@ export default function RootLayout({
           process.env.NEXT_PUBLIC_PLATFORM === 'desktop' ? 'overflow-hidden h-screen' : '',
         )}
       >
+        <SEO />
         <ThemeProvider>
           {children}
         </ThemeProvider>
