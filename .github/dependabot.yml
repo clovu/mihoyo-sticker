@@ -5,18 +5,15 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
-    labels:
-      - "dependencies"
+
+  - package-ecosystem: "cargo"
+    directory: "/src-tauri"
+    schedule:
+      interval: "weekly"
+      day: "monday"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
-    labels:
-      - "dependencies"
-      - "github-actions"
-    groups:
-      github-actions:
-        patterns:
-          - "*"
