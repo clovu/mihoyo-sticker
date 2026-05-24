@@ -61,7 +61,7 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.4",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.7"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
