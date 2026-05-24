@@ -2,7 +2,6 @@
   "name": "mihoyo-sticker",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.3.0",
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:tauri": "NEXT_PUBLIC_PLATFORM=desktop tauri dev",
@@ -54,7 +53,6 @@
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "globals": "^17.6.0",
     "lint-staged": "^17.0.5",
-    "pnpm": "^10.27.0",
     "postcss": "^8.5.15",
     "postcss-load-config": "^6.0.1",
     "simple-git-hooks": "^2.13.1",
