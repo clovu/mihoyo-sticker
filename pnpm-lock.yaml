@@ -124,8 +124,8 @@ importers:
         specifier: ^16.2.7
         version: 16.2.7
       pnpm:
-        specifier: ^10.27.0
-        version: 10.27.0
+        specifier: ^11.2.2
+        version: 11.2.2
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -2667,9 +2667,9 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
 
-  pnpm@10.27.0:
-    resolution: {integrity: sha512-ctaZ2haxF5wUup5k3HHJpAmIy9xlwmTLDkidt96RfyDc9NZNhyNiXylpulLUt+KhFwaC2awqXcrqq3MrfhbwSg==}
-    engines: {node: '>=18.12'}
+  pnpm@11.2.2:
+    resolution: {integrity: sha512-NuZiH61QYXiTZFXnAke4gI707CV5ep9DepMoGgIEhOJgf2pGmiLpgph8PbuIZuMHFRSrEKShdJ4G7c0ewRhDbw==}
+    engines: {node: '>=22.13'}
     hasBin: true
 
   possible-typed-array-names@1.1.0:
@@ -5708,7 +5708,7 @@ snapshots:
 
   pidtree@0.6.0: {}
 
-  pnpm@10.27.0: {}
+  pnpm@11.2.2: {}
 
   possible-typed-array-names@1.1.0: {}
 
