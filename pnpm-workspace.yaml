@@ -3,3 +3,6 @@ allowBuilds:
   sharp: true
   simple-git-hooks: true
   unrs-resolver: true
+
+packages:
+  - .
