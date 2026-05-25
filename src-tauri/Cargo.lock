@@ -2193,7 +2193,7 @@ dependencies = [
 [[package]]
 name = "monitor"
 version = "0.1.0"
-source = "git+https://github.com/ahkohd/tauri-toolkit?branch=v2#bedce128b81da382aead5a94f249bbce88c878d3"
+source = "git+https://github.com/ahkohd/tauri-toolkit?branch=v2#dee384d1f9c3ecdc7ce80966fa23e752056812ae"
 dependencies = [
  "cocoa",
  "core-foundation",
