@@ -42,8 +42,8 @@ importers:
         specifier: ~2.3.2
         version: 2.3.2
       '@vercel/config':
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.5.1
+        version: 0.5.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1468,8 +1468,8 @@ packages:
     resolution: {integrity: sha512-XSvL5wKXBZIv7fflMqhQx936sRpEtzxeV25xAEt0rLLXzbF6RCQaRA1jrVIn8JCubMyn/y0TaidphUtilLzl1A==}
     engines: {node: '>=18'}
 
-  '@vercel/config@0.5.0':
-    resolution: {integrity: sha512-92yapoNoNhdiKgSz0DUwZiJ05xx8WZWS7cdVhcjAPU9dDXwns4xY5mll04IRE3kjwLqnmxcR+mdG7vGFL7hV+A==}
+  '@vercel/config@0.5.1':
+    resolution: {integrity: sha512-q246LO1IfGOslxx4S5kRH2YrrrBoaR9cBKuNe8VfOFHmqLDrL/+MYrX7uZOowtPO7WemKI5w8L+9WU4rq1Q25w==}
     hasBin: true
 
   '@vercel/routing-utils@6.2.0':
@@ -4388,7 +4388,7 @@ snapshots:
 
   '@ver0/deep-equal@1.0.1': {}
 
-  '@vercel/config@0.5.0':
+  '@vercel/config@0.5.1':
     dependencies:
       '@vercel/routing-utils': 6.2.0
       pretty-cache-header: 1.0.0
