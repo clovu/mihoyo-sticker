@@ -26,7 +26,7 @@ tauri-plugin-global-shortcut = { git = "https://github.com/tauri-apps/plugins-wo
 tauri-nspanel = { git = "https://github.com/ahkohd/tauri-nspanel", branch = "v2" }
 thiserror = "2.0.18"
 monitor = { git = "https://github.com/ahkohd/tauri-toolkit", branch = "v2" }
-window-vibrancy = "0.6.0"
+window-vibrancy = "0.7.1"
 objc = "0.2.7"
 tauri-plugin-clipboard-manager = "2"
 chrono = "0.4.44"
