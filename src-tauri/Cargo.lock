@@ -3798,7 +3798,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-global-shortcut"
 version = "2.3.2"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v2#aecec42d5d4ef1b9ef307114132bd45fc2fd5952"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v2#d1573877226e609461761aa538cd0ca4f24d22be"
 dependencies = [
  "global-hotkey",
  "log",
