@@ -54,7 +54,7 @@
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "globals": "^17.6.0",
     "lint-staged": "^17.0.7",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.18",
     "postcss-load-config": "^6.0.1",
     "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4.3.0",
