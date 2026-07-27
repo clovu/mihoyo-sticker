@@ -29,7 +29,7 @@ export default [
     },
   },
   {
-    ignores: ['.next/', 'out'],
+    ignores: ['.next/', 'out', 'src-tauri'],
   },
 
   // Allow the use of any type in test cases.
