@@ -58,12 +58,12 @@ export function StickerCard({
     : defaultActiveId
 
   const { value: historyStickerRecords, set: setHistory } =
-    useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
+    useLocalStorageValue<HistoryStickerRecord>('sticker-history', {
+      initializeWithValue: false,
+      defaultValue: {},
+    })
 
   function addHistory(s: Sticker) {
-    if (!historyStickerRecords)
-      setHistory({})
-
     const records = { ...historyStickerRecords }
     records[s.id] = [new Date().getTime(), s]
 
