@@ -73,6 +73,7 @@
     "NSURL",
     "objc",
     "sonner",
+    "tauri",
     "Yoverse"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
