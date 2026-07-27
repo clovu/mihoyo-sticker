@@ -32,14 +32,13 @@ interface StickerCardProps {
   header?: React.ReactNode | undefined
 }
 
-
-
 const DEFAULT_MIME = 'image/png'
+const HISTORY_GROUP_ID = 0
 
 export function StickerCard({
   className, groups = [], header, scrollAreaClassName,
 }: StickerCardProps) {
-  const defaultActiveId = findDefaultGroup(groups)?.id ?? 0
+  const defaultActiveId = findDefaultGroup(groups)?.id ?? HISTORY_GROUP_ID
   const {
     set: setActive,
     value: storedActiveId,
@@ -47,15 +46,6 @@ export function StickerCard({
     initializeWithValue: false,
     defaultValue: defaultActiveId,
   })
-
-  // check if not exists the group, use the first group
-  const isStoredActiveIdValid =
-    storedActiveId === 0 ||
-    groups.some(({ id }) => id === storedActiveId)
-
-  const activeId = isStoredActiveIdValid
-    ? storedActiveId
-    : defaultActiveId
 
   const { value: historyStickerRecords, set: setHistory } =
     useLocalStorageValue<HistoryStickerRecord>('sticker-history', {
@@ -236,17 +226,24 @@ export function StickerCard({
 
   // handle history sticker and sort
   const historyStickers = handleHistorySticker(historyStickerRecords || {})
-  const historyGroup = { id: 0, name: 'History', list: historyStickers }
+  const historyGroup = { id: HISTORY_GROUP_ID, name: 'History', list: historyStickers }
 
   // find the current selected group
-  const currGroup = [historyGroup, ...groups].find(({ id }) => id === activeId)
+  const currGroup = [historyGroup, ...groups].find(({ id }) => id === storedActiveId)
+    ?? groups.at(defaultActiveId)
+    ?? historyGroup
   const currGroupStickers = currGroup?.list ?? []
+
+  React.useEffect(() => {
+    if (currGroup.id != storedActiveId)
+      setActive(currGroup.id)
+  }, [currGroup, storedActiveId])
 
   function GroupBarRenderer(el?: React.ReactNode) {
     return <>
       <Button
         variant="outline"
-        className={cn('w-10 h-10', activeId === 0 ? 'bg-muted' : '')}
+        className={cn('w-10 h-10', storedActiveId === 0 ? 'bg-muted' : '')}
         onClick={() => {
           setActive(0)
         }}
@@ -273,7 +270,7 @@ export function StickerCard({
         <ScrollArea className="w-full py-4">
           <StickerGroupBar
             data={groups}
-            activeId={activeId}
+            activeId={storedActiveId}
             onClick={setActive}
             renderer={GroupBarRenderer}
           />
