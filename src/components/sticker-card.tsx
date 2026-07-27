@@ -40,16 +40,22 @@ export function StickerCard({
   className, groups = [], header, scrollAreaClassName,
 }: StickerCardProps) {
   const defaultActiveId = findDefaultGroup(groups)?.id ?? 0
-  let { set: setActive, value: active } = useLocalStorageValue<number>('active-parant-id', {
+  const {
+    set: setActive,
+    value: storedActiveId,
+  } = useLocalStorageValue<number>('active-parant-id', {
     initializeWithValue: false,
     defaultValue: defaultActiveId,
   })
 
   // check if not exists the group, use the first group
-  if (active !== 0) {
-    const hasActiveId = groups.some(it => it.id === active)
-    if (!hasActiveId) active = groups.at(0)?.id ?? 0
-  }
+  const isStoredActiveIdValid =
+    storedActiveId === 0 ||
+    groups.some(({ id }) => id === storedActiveId)
+
+  const activeId = isStoredActiveIdValid
+    ? storedActiveId
+    : defaultActiveId
 
   const { value: historyStickerRecords, set: setHistory } =
     useLocalStorageValue<HistoryStickerRecord>('sticker-history', {})
@@ -233,14 +239,14 @@ export function StickerCard({
   const historyGroup = { id: 0, name: 'History', list: historyStickers }
 
   // find the current selected group
-  const currGroup = [historyGroup, ...groups].find(({ id }) => id === active)
+  const currGroup = [historyGroup, ...groups].find(({ id }) => id === activeId)
   const currGroupStickers = currGroup?.list ?? []
 
   function GroupBarRenderer(el?: React.ReactNode) {
     return <>
       <Button
         variant="outline"
-        className={cn('w-[40px] h-[40px]', active === 0 ? 'bg-muted' : '')}
+        className={cn('w-10 h-10', activeId === 0 ? 'bg-muted' : '')}
         onClick={() => {
           setActive(0)
         }}
@@ -256,7 +262,7 @@ export function StickerCard({
       <Toaster />
       {header}
       <CardContent className="overflow-hidden p-4 pb-0 pr-2">
-        <ScrollArea className={cn('max-h-[300px] h-52 pr-2', scrollAreaClassName)}>
+        <ScrollArea className={cn('max-h-75 h-52 pr-2', scrollAreaClassName)}>
           <div className="grid sm:grid-cols-10 grid-cols-4 gap-1">
             <StickerRenderer stickers={currGroupStickers} onMenuClick={handleMenuClick} onClick={onCopy} />
           </div>
@@ -267,11 +273,11 @@ export function StickerCard({
         <ScrollArea className="w-full py-4">
           <StickerGroupBar
             data={groups}
-            activeId={active}
+            activeId={activeId}
             onClick={setActive}
             renderer={GroupBarRenderer}
           />
-          <ScrollBar orientation="horizontal" className="absolute !bottom-[3px]" />
+          <ScrollBar orientation="horizontal" className="absolute bottom-0.75!" />
         </ScrollArea>
       </CardFooter>
     </Card>
