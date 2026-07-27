@@ -13,7 +13,6 @@ import { Separator } from './ui/separator'
 import { Toaster } from './ui/sonner'
 import { Button } from './ui/button'
 
-
 import { HistoryStickerRecord, Sticker, StickerGroup } from '~/types'
 
 import * as clipboard from '~/lib/clipboard'
@@ -135,9 +134,6 @@ export function StickerCard({
   async function onCopy(event: React.MouseEvent<HTMLImageElement>, sticker: Sticker) {
     const img = event.currentTarget
     if (!isStickerImageValid(img, sticker.name)) return
-
-
-
 
     try {
       if (process.env.NEXT_PUBLIC_PLATFORM === 'desktop') {
