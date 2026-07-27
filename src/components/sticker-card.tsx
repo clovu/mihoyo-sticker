@@ -230,14 +230,9 @@ export function StickerCard({
 
   // find the current selected group
   const currGroup = [historyGroup, ...groups].find(({ id }) => id === storedActiveId)
-    ?? groups.at(defaultActiveId)
+    ?? groups.find(({ id }) => id === defaultActiveId)
     ?? historyGroup
   const currGroupStickers = currGroup?.list ?? []
-
-  React.useEffect(() => {
-    if (currGroup.id != storedActiveId)
-      setActive(currGroup.id)
-  }, [currGroup, storedActiveId])
 
   function GroupBarRenderer(el?: React.ReactNode) {
     return <>
